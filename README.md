@@ -127,4 +127,27 @@ A Rust project can have both binary and library components. You can use the libr
 - **Library Application**: Reusable code without a `main` function (`src/lib.rs`).
 - **Hybrid**: A project with both a binary and a library component.
 
-Let me know if you'd like to dive deeper into either concept!
+# Conditional Statements
+
+## Write a code to print if a number is even or not
+
+```rust
+fn main() {
+    let number = 5; // You can change this to test other numbers
+    if is_even(number) {
+        println!("{} is even.", number);
+    } else {
+        println!("{} is odd.", number);
+    }
+}
+
+fn is_even(num: i32) -> bool {
+    num % 2 == 0
+}
+```
+
+### Explanation:
+- `is_even` is a function that takes an integer (`num`) as input and returns a boolean (`true` if the number is even, `false` otherwise).
+- The main function tests the number using `is_even` and prints whether it's even or odd.
+
+You can modify the `number` variable in the `main` function to check other numbers.
