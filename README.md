@@ -151,3 +151,191 @@ fn is_even(num: i32) -> bool {
 - The main function tests the number using `is_even` and prints whether it's even or odd.
 
 You can modify the `number` variable in the `main` function to check other numbers.
+
+# Mutable Variables
+
+In Rust, variables are immutable by default, meaning once you assign a value to a variable, you cannot change it unless explicitly marked as mutable. To make a variable mutable, you use the `mut` keyword.
+
+### Example of Mutable Variables
+
+Here’s a simple example that demonstrates how to declare and use a mutable variable:
+
+```rust
+fn main() {
+    let mut x = 5;  // `x` is mutable
+    println!("The value of x is: {}", x);
+
+    x = 10;  // Mutating `x`
+    println!("The value of x is now: {}", x);
+}
+```
+
+### Key Points:
+- **`let mut x = 5;`**: Declares a mutable variable `x` with the initial value of 5.
+- **`x = 10;`**: You can assign a new value to `x` because it's mutable.
+- If you remove the `mut` keyword, you’ll get a compile-time error if you try to change `x` later in the code.
+
+### Example of Trying to Modify an Immutable Variable:
+```rust
+fn main() {
+    let x = 5;  // Immutable variable
+    println!("The value of x is: {}", x);
+
+    // This will cause an error because `x` is not mutable
+    x = 10;
+}
+```
+This will generate a compile-time error similar to:
+```
+error[E0384]: cannot assign twice to immutable variable `x`
+```
+
+### Benefits of Immutable by Default:
+- **Safety**: Immutable variables prevent accidental changes and make code easier to reason about.
+- **Performance**: The compiler can make optimizations when it knows a value will not change.
+
+### When to Use Mutable Variables:
+- Use mutable variables when you need to update the value over time.
+- If the value is constant and doesn’t need to be changed, prefer immutability for safer and more predictable code.
+
+# Loops
+
+Rust provides several ways to write loops: `loop`, `while`, and `for`. Each serves a different purpose based on the use case. Let’s go through each one with examples.
+
+### 1. **`loop`: Infinite Loop**
+   The `loop` keyword is used to create an infinite loop. It will continue running until you explicitly break out of it.
+
+   ```rust
+   fn main() {
+       let mut counter = 0;
+
+       loop {
+           counter += 1;
+           println!("Counter: {}", counter);
+
+           if counter == 5 {
+               break;  // Exit the loop when `counter` reaches 5
+           }
+       }
+   }
+   ```
+
+   **Explanation**:
+   - This loop will increment `counter` and print it.
+   - The `break` statement is used to exit the loop when `counter` reaches 5.
+
+### 2. **`while`: Conditional Loop**
+   A `while` loop runs as long as a specified condition is true. It checks the condition before each iteration.
+
+   ```rust
+   fn main() {
+       let mut number = 3;
+
+       while number != 0 {
+           println!("{}!", number);
+
+           number -= 1;
+       }
+
+       println!("Liftoff!");
+   }
+   ```
+
+   **Explanation**:
+   - The `while` loop checks if `number != 0`. If it's true, it runs the loop body, printing the value of `number` and decrementing it.
+   - When `number` reaches 0, the loop stops.
+
+### 3. **`for`: Iterating over a Range**
+   The `for` loop is used to iterate over a collection or a range of values. It’s commonly used for fixed-range loops.
+
+   ```rust
+   fn main() {
+       for i in 1..5 {
+           println!("i is: {}", i);
+       }
+   }
+   ```
+
+   **Explanation**:
+   - The `for i in 1..5` loop iterates from 1 to 4 (`..` is exclusive, meaning it stops before 5).
+   - You can also use `1..=5` to include 5 (`..=` is inclusive).
+
+### 4. **`for` Loop with Iterators**
+   Rust's `for` loop can iterate over any type that implements the `Iterator` trait, including arrays and vectors.
+
+   ```rust
+   fn main() {
+       let numbers = [10, 20, 30, 40, 50];
+
+       for number in numbers.iter() {
+           println!("The number is: {}", number);
+       }
+   }
+   ```
+
+   **Explanation**:
+   - The `for` loop here iterates over an array using `.iter()`, which returns an iterator for the array.
+
+### 5. **Loop with Labels and Nested Loops**
+   You can use labels to manage control flow in nested loops, allowing you to break out of a specific loop.
+
+   ```rust
+   fn main() {
+       let mut count = 0;
+
+       'outer: loop {  // Label for the outer loop
+           println!("count = {}", count);
+           let mut remaining = 10;
+
+           loop {
+               if remaining == 9 {
+                   break;
+               }
+               if count == 2 {
+                   break 'outer;  // Exits the outer loop
+               }
+               remaining -= 1;
+           }
+
+           count += 1;
+       }
+
+       println!("End of loop");
+   }
+   ```
+
+   **Explanation**:
+   - The `'outer` label allows you to specify that you want to break out of the outer loop when `count == 2`.
+   - Without the label, `break` would only exit the inner loop.
+
+### 6. **Returning Values from Loops**
+   You can also return values from loops by specifying a value after the `break` keyword.
+
+   ```rust
+   fn main() {
+       let mut counter = 0;
+
+       let result = loop {
+           counter += 1;
+
+           if counter == 10 {
+               break counter * 2;  // Return value after `break`
+           }
+       };
+
+       println!("The result is: {}", result);
+   }
+   ```
+
+   **Explanation**:
+   - When `counter == 10`, the loop breaks and returns `counter * 2`, which is 20 in this case.
+   - The result is assigned to the `result` variable.
+
+---
+
+### Summary:
+- **`loop`**: Runs infinitely unless explicitly stopped with `break`.
+- **`while`**: Runs as long as a condition is true.
+- **`for`**: Iterates over a range or collection.
+
+Loops in Rust are powerful and versatile, allowing for a wide range of use cases. Let me know if you need further clarification or examples!
